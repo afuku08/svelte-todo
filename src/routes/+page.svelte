@@ -1,37 +1,59 @@
 <script>
-    const todos = $state([
-        { id: 1, title: "Hello, Svelte"},
-        { id: 2, title: "Svelte is awesome"},
-    ]);
+	import { fly, slide } from 'svelte/transition';
+	import { enhance } from '$app/forms';
 
-    let uid = todos.length + 1;
+	let { data, form } = $props();
 </script>
 
-<h1>home</h1>
+<div class="centered">
+	<h1>todos</h1>
 
-<div>
-    <input
-        placeholder="todo"
-        onkeydown={(e) => {
-            if (e.key !== 'Enter') return;
+	{#if form?.error}
+		<p class="error">{form.error}</p>
+	{/if}
 
-            todos.push({
-                id: uid++,
-                title: e.currentTarget.value
-            });
+    <a href="./add">
+        <button type="submit">作成</button>
+    </a>
 
-            e.currentTarget.value = '';
-        }}
-    />
+	<ul class="todos">
+		{#each data.todos as todo (todo.id)}
+			<li in:fly={{ y: 20 }} out:slide>
+				<span>{todo.title}</span>
+				<span>{todo.description}</span>
+				<a href="/change?id={todo.id}&title={todo.title}&description={todo.description}">
+					<button type="submit">編集</button>
+				</a>
+				<form method="POST" action="?/delete" use:enhance>
+					<input type="hidden" name="id" value={todo.id} />
+					<input type="hidden" name="title" value={todo.title} />
+					<input type="hidden" name="description" value={todo.description} />
+					<button aria-label="Mark as complete">削除</button>
+				</form>
+			</li>
+		{/each}
+	</ul>
 </div>
 
-{#snippet showTodo(post)}
-    <article>
-        <h2>{post.title}</h2>
-    </article>
-{/snippet}
+<style>
+	.centered {
+		max-width: 20em;
+		margin: 0 auto;
+	}
 
-{#each todos as todo}
-    {@render showTodo(todo)}
-{/each}
+	label {
+		width: 100%;
+	}
 
+	input {
+		flex: 1;
+	}
+
+	span {
+		flex: 1;
+	}
+
+	.saving {
+		opacity: 0.5;
+	}
+</style>
