@@ -29,12 +29,9 @@ jobs:
       - name: Docker イメージをビルド
         run: docker compose build
 
-      - name: イメージ一覧を確認
-        run: docker images
+      - name: イメージにタグ付け
+        run: docker tag svelte-todo-sveltekit-app ${{ secrets.ECR_REPOSITORY }}:latest
 
-      # - name: イメージにタグ付け
-      #   run: docker tag svelte-todo-app-sveltekit-app ${{ secrets.ECR_REPOSITORY }}:latest
-
-      # - name: イメージをECRにpush
-      #   run: |
-      #     docker push ${{ secrets.ECR_REPOSITORY }}:latest
+      - name: イメージをECRにpush
+        run: |
+          docker push ${{ secrets.ECR_REPOSITORY }}:latest
