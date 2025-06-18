@@ -13,14 +13,18 @@
     <p class='error'>{form.error}</p>
 {/if}
 
-<h1>{id}</h1>
-
 <form method="POST">
-    <label for="title">Title</label>
-    <input type="text" id="title" name="title" value={title} autocomplete="off" required/>
+    <input type="hidden" name="todoid" value={id}/>
 
-    <label for="description">Description</label>
-    <textarea id="description" name="description" value={description} autocomplete="off"></textarea>
+    <div class="row">
+        <label for="title">タイトル</label>
+        <input type="text" id="title" name="title" value={title} autocomplete="off" required/>
+    </div>
 
-    <button type="submit">作成</button>
+    <div class="row">
+        <label for="description">詳細</label>
+        <textarea id="description" name="description" value={description} autocomplete="off"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">作成</button>
 </form>

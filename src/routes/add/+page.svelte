@@ -12,11 +12,16 @@
 {/if}
 
 <form method="POST">
-    <label for="title">Title</label>
-    <input type="text" id="title" name="title" placeholder="Title" autocomplete="off" required/>
 
-    <label for="description">Description</label>
-    <textarea id="description" name="description" placeholder="Description" autocomplete="off"></textarea>
+    <div class="row">
+        <label for="title">タイトル</label>
+        <input type="text" id="title" name="title" placeholder="Title" autocomplete="off" required/>
+    </div>
+
+    <div class="row">
+        <label for="description">詳細</label>
+        <textarea id="description" name="description" placeholder="Description" autocomplete="off"></textarea>
+    </div>
 
     <button type="submit">作成</button>
 </form>
