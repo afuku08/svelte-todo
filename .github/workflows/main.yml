@@ -30,7 +30,7 @@ jobs:
         run: docker compose build
 
       - name: イメージにタグ付け
-        run: docker tag svelte-todo-app ${{ secrets.ECR_REPOSITORY }}:latest
+        run: docker tag svelte-todo-app_sveltekit-app ${{ secrets.ECR_REPOSITORY }}:latest
 
       - name: イメージをECRにpush
         run: |
