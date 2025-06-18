@@ -42,6 +42,9 @@ export const actions = {
 		const data = await request.formData();
         const userid = cookies.get('userid');
         const description = data.get('description');
+		const id = data.get('id');
+
+		console.log(description);
 
         if (typeof userid !== 'string' || typeof description !== 'string') {
             return fail(400, {
@@ -49,6 +52,12 @@ export const actions = {
             });
         }
 
-		db.deleteTodo(userid, description);
+		if (id === null) {
+			return fail(400, {
+				error: 'Invalid ID',
+			});
+		}
+
+		db.deleteTodo(userid, id);
 	}
 };

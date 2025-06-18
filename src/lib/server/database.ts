@@ -35,7 +35,7 @@ export function createTodo(userid: string, title: string, description: string) {
 	});
 }
 
-export function deleteTodo(userid: string, todoid: string) {
+export function deleteTodo(userid: string, todoid: FormDataEntryValue) {
 	const todos = db.get(userid);
 	const index = todos.findIndex((todo: Todo) => todo.id === todoid);
 
