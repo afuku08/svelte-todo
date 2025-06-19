@@ -11,8 +11,7 @@
     <p class='error'>{form.error}</p>
 {/if}
 
-<form method="POST">
-
+<form method="POST" action="add">
     <div class="row">
         <label for="title">タイトル</label>
         <input type="text" id="title" name="title" placeholder="Title" autocomplete="off" required/>
