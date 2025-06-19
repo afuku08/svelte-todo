@@ -35,6 +35,6 @@ export const actions = {
                     error: message,
                 });
             }
-            throw redirect(303, '/');
+            throw redirect(303, '..');
         },
 }
