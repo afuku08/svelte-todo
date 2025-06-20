@@ -10,12 +10,14 @@ export const actions = {
             const description = data.get('description');
     
             if (typeof userid !== 'string' || typeof title !== 'string' || typeof description !== 'string') {
+                console.log('Invalid user ID, title or description');
                 return fail(400, {
                     error: 'Invalid user ID, title or description',
                 });
             }
 
             if (!title) {
+                console.log('No title');
                 return fail(400, {
                     errors: {
                         title: 'required'
@@ -29,6 +31,7 @@ export const actions = {
                 db.createTodo(userid, title, description);
             } catch (error) {
                 const message = error instanceof Error ? error.message : 'Unknown error';
+                console.log('error');
                 return fail(422, {
                     description: data.get('description'),
                     error: message,

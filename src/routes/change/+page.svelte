@@ -13,7 +13,7 @@
     <p class='error'>{form.error}</p>
 {/if}
 
-<form method="POST" action="change">
+<form method="POST" action="/change">
     <input type="hidden" name="todoid" value={id}/>
 
     <div class="row">
