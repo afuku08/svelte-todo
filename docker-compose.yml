@@ -5,4 +5,3 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: production
-      ORIGIN: http://fukuhara-alb-1610566939.ap-northeast-1.elb.amazonaws.com
