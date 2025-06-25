@@ -61,7 +61,7 @@ jobs:
         run: echo "image=${{ secrets.ECR_REPOSITORY }}:latest" >> $GITHUB_OUTPUT
 
       - name: タスク定義を新しいイメージで更新
-        id: task-def
+        id: update-task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
@@ -71,7 +71,7 @@ jobs:
       - name: 新しいタスク定義を登録
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          task-definition: ${{ steps.update-task-def.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
