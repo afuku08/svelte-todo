@@ -2,7 +2,7 @@ import { fail } from '@sveltejs/kit';
 import type { RequestEvent } from '@sveltejs/kit';
 import * as db from '$lib/server/database.js';
 
-export function load({ cookies }: RequestEvent) {
+export async function load({ cookies }: RequestEvent) {
 	let id = cookies.get('userid');
 
 	if (!id) {
@@ -11,7 +11,7 @@ export function load({ cookies }: RequestEvent) {
 	}
 
 	return {
-		todos: db.getTodos(id)
+		todos: await db.getTodos(id)
 	};
 }
 
