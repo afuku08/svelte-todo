@@ -54,7 +54,8 @@ jobs:
       - name: ECSタスク定義を取得
         id: task-def
         run: |
-          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} > task-definition.json
+          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} > task-def-full.json
+          jq '.taskDefinition' task-def-full.json > task-definition.json
 
       - name: イメージURIを取得
         id: image_uri
