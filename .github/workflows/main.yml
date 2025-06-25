@@ -38,12 +38,19 @@ jobs:
 
 
   deploy:
+    needs: build-and-push
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
 
     steps:
+      - name: AWSにログイン
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: "arn:aws:iam::415355479792:role/fukuhara-github-actions-test"
+          
       - name: ECSタスク定義を取得
         id: task-def
         run: |
