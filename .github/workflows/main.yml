@@ -55,7 +55,17 @@ jobs:
         id: task-def
         run: |
           aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} > task-def-full.json
-          jq '.taskDefinition' task-def-full.json > task-definition.json
+          jq '.taskDefinition |
+            {
+              family,
+              networkMode,
+              containerDefinitions,
+              requiresCompatibilities,
+              cpu,
+              memory
+            } + 
+            (if .executionRoleArn != null then {executionRoleArn} else {} end) + 
+            (if .taskRoleArn != null then {taskRoleArn} else {} end)' task-def-full.json > task-definition.json
 
       - name: イメージURIを取得
         id: image_uri
